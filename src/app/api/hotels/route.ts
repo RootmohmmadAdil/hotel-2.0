@@ -94,78 +94,26 @@ const generateSampleRooms = (hotelId: any) => [
   },
 ];
 
-// GET: Fetch all hotels
 export async function GET() {
   try {
     await dbConnect();
-    
-    // Check if hotels exist, if not seed the database
     const hotelCount = await Hotel.countDocuments();
     if (hotelCount === 0) {
       const createdHotels = await Hotel.insertMany(sampleHotels);
-      
-      // Create sample rooms for each hotel
       for (const hotel of createdHotels) {
-        const rooms = generateSampleRooms(hotel._id);
-        await Room.insertMany(rooms);
+        await Room.insertMany(generateSampleRooms(hotel._id));
       }
     }
-
-    // Seed rooms if hotels exist but rooms are missing
     const roomCount = await Room.countDocuments();
     if (roomCount === 0) {
       const hotels = await Hotel.find({});
       for (const hotel of hotels) {
-        const rooms = generateSampleRooms(hotel._id);
-        await Room.insertMany(rooms);
+        await Room.insertMany(generateSampleRooms(hotel._id));
       }
     }
-
-    // Ensure all hotels show the updated location
-    await Hotel.updateMany({}, { $set: { city: 'Sasaram, Bihar' } });
-    
     const hotels = await Hotel.find({}).sort({ createdAt: -1 });
-    
-    return NextResponse.json({
-      success: true,
-      count: hotels.length,
-      data: hotels,
-    });
+    return NextResponse.json({ success: true, data: hotels });
   } catch (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Failed to fetch hotels',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    );
-  }
-}
-
-// POST: Create a new hotel
-export async function POST(request: Request) {
-  try {
-    await dbConnect();
-    const body = await request.json();
-    
-    const hotel = await Hotel.create(body);
-    
-    return NextResponse.json(
-      {
-        success: true,
-        data: hotel,
-      },
-      { status: 201 }
-    );
-  } catch (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Failed to create hotel',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to fetch hotels' }, { status: 500 });
   }
 }

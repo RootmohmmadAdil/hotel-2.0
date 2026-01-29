@@ -4,48 +4,19 @@ import Hotel from '@/models/Hotel';
 import Room from '@/models/Room';
 import mongoose from 'mongoose';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
     await dbConnect();
-    
-    const hotelId = params.id;
-    
-    if (!mongoose.Types.ObjectId.isValid(hotelId)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid hotel ID' },
-        { status: 400 }
-      );
+    if (!mongoose.Types.ObjectId.isValid(params.id)) {
+      return NextResponse.json({ success: false, error: 'Invalid ID' }, { status: 400 });
     }
-
-    const hotel = await Hotel.findById(hotelId);
-    
+    const hotel = await Hotel.findById(params.id);
     if (!hotel) {
-      return NextResponse.json(
-        { success: false, error: 'Hotel not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ success: false, error: 'Not found' }, { status: 404 });
     }
-
-    const rooms = await Room.find({ hotelId });
-
-    return NextResponse.json({
-      success: true,
-      data: {
-        hotel,
-        rooms,
-      },
-    });
+    const rooms = await Room.find({ hotelId: params.id });
+    return NextResponse.json({ success: true, data: { hotel, rooms } });
   } catch (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Failed to fetch hotel details',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed' }, { status: 500 });
   }
 }
