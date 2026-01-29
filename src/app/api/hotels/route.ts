@@ -8,7 +8,7 @@ const sampleHotels = [
   {
     name: 'adil',
     city: 'Sasaram, Bihar',
-    pricePerNight: 1900,
+    pricePerNight: 3000,
     image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
     rating: 4.8,
     amenities: ['WiFi', 'Pool', 'Gym', 'Restaurant', 'Spa'],
@@ -16,7 +16,7 @@ const sampleHotels = [
   {
     name: 'yash',
     city: 'Sasaram, Bihar',
-    pricePerNight: 2800,
+    pricePerNight: 4200,
     image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80',
     rating: 4.6,
     amenities: ['WiFi', 'Beach Access', 'Pool', 'Restaurant'],
@@ -24,7 +24,7 @@ const sampleHotels = [
   {
     name: 'ankush',
     city: 'Sasaram, Bihar',
-    pricePerNight: 2500,
+    pricePerNight: 3800,
     image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=80',
     rating: 4.7,
     amenities: ['WiFi', 'Fireplace', 'Hiking Trails', 'Restaurant'],
@@ -32,7 +32,7 @@ const sampleHotels = [
   {
     name: 'mohammad',
     city: 'Sasaram, Bihar',
-    pricePerNight: 3220,
+    pricePerNight: 4800,
     image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80',
     rating: 4.5,
     amenities: ['WiFi', 'Gym', 'Rooftop Bar', 'Parking'],
@@ -40,7 +40,7 @@ const sampleHotels = [
   {
     name: 'zaid',
     city: 'Sasaram, Bihar',
-    pricePerNight: 2140,
+    pricePerNight: 3200,
     image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80',
     rating: 4.4,
     amenities: ['WiFi', 'Lake View', 'Restaurant', 'Bar'],
@@ -48,7 +48,7 @@ const sampleHotels = [
   {
     name: 'rahul',
     city: 'Sasaram, Bihar',
-    pricePerNight: 3180,
+    pricePerNight: 4800,
     image: 'https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&q=80',
     rating: 4.9,
     amenities: ['WiFi', 'Pool', 'Gym', 'Spa', 'Valet Parking'],
