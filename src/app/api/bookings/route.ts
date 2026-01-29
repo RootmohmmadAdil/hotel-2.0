@@ -26,14 +26,3 @@ export async function GET() {
     return NextResponse.json({ success: false, error: 'Failed to fetch' }, { status: 500 });
   }
 }
-  } catch (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Failed to fetch bookings',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    );
-  }
-}
