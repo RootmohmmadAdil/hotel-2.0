@@ -27,20 +27,14 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Hotels</h1>
-        <a href="/admin">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-            Admin Dashboard
-          </button>
-        </a>
-      </div>
+    <main className="p-4 max-w-6xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Book Your Hotel</h1>
+      <a href="/admin" className="inline-block mb-6 px-4 py-2 bg-gray-700 text-white rounded">Admin</a>
       
       {loading ? (
-        <p>Loading...</p>
+        <p>Loading hotels...</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {hotels.map((hotel) => (
             <HotelCard key={hotel._id.toString()} hotel={hotel} />
           ))}
