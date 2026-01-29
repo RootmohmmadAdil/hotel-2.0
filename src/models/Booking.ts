@@ -1,9 +1,20 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
+
 export interface IBooking extends Document {
-  hotelName: string; userName: string; userEmail: string;
-  checkInDate: string; checkOutDate: string; roomType: string;
-  roomNumber: string; roomPrice: number; totalPrice: number; numberOfGuests: number;
+  hotelName: string;
+  userName: string;
+  userEmail: string;
+  checkInDate: string;
+  checkOutDate: string;
+  roomType: string;
+  roomNumber: string;
+  roomPrice: number;
+  totalPrice: number;
+  numberOfGuests: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
+
 const BookingSchema: Schema = new Schema({
   hotelName: { type: String, required: true },
   userName: { type: String, required: true },
@@ -16,5 +27,7 @@ const BookingSchema: Schema = new Schema({
   totalPrice: { type: Number, required: true },
   numberOfGuests: { type: Number, required: true },
 }, { timestamps: true });
+
 const Booking: Model<IBooking> = mongoose.models.Booking || mongoose.model<IBooking>('Booking', BookingSchema);
+
 export default Booking;

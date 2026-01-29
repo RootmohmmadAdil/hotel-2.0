@@ -6,19 +6,19 @@ import { IHotel } from '@/models/Hotel';
 
 export default function HotelCard({ hotel }: { hotel: IHotel }) {
   return (
-    <div className="border border-gray-300 p-4 rounded">
-      <div className="relative h-48 w-full mb-3">
-        <Image src={hotel.image} alt={hotel.name} fill className="object-cover" />
+    <div style={{ border: '1px solid #ddd', borderRadius: '6px', padding: '15px', backgroundColor: '#fff' }}>
+      <div style={{ position: 'relative', height: '200px', width: '100%', marginBottom: '10px', borderRadius: '4px', overflow: 'hidden' }}>
+        <Image src={hotel.image} alt={hotel.name} fill style={{ objectFit: 'cover' }} />
       </div>
       
-      <h2 className="text-xl font-bold mb-1">{hotel.name}</h2>
-      <p className="text-gray-700 mb-1">City: {hotel.city}</p>
-      {hotel.rating && <p className="text-blue-600 font-semibold mb-2">Rating: {hotel.rating}/5</p>}
+      <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '8px' }}>{hotel.name}</h2>
+      <p style={{ color: '#555', marginBottom: '5px' }}>{hotel.city}</p>
+      {hotel.rating && <p style={{ color: '#0066cc', fontWeight: 'bold', marginBottom: '8px' }}>Rating: {hotel.rating}/5</p>}
       
-      <div className="flex justify-between items-center">
-        <p className="text-lg font-bold text-blue-600">₹{hotel.pricePerNight}/night</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <p style={{ fontSize: '16px', fontWeight: 'bold', color: '#0066cc' }}>₹{hotel.pricePerNight}/night</p>
         <Link href={`/hotels/${hotel._id}`}>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View Rooms</button>
+          <button style={{ padding: '8px 12px', backgroundColor: '#0066cc', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>View Rooms</button>
         </Link>
       </div>
     </div>
