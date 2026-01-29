@@ -68,7 +68,6 @@ export default function HotelDetailsPage() {
         <h1 className="text-2xl font-bold mb-2">{hotel.name}</h1>
         <p className="text-gray-700 mb-1">City: {hotel.city}</p>
         {hotel.rating && <p className="text-gray-700 mb-2">Rating: {hotel.rating}/5</p>}
-        {hotel.description && <p className="text-gray-700 mb-3">{hotel.description}</p>}
       </div>
 
       <div className="border p-4 mb-6 rounded">

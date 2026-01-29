@@ -14,7 +14,6 @@ export default function HotelCard({ hotel }: { hotel: IHotel }) {
       <h2 className="text-xl font-bold mb-1">{hotel.name}</h2>
       <p className="text-gray-700 mb-1">City: {hotel.city}</p>
       {hotel.rating && <p className="text-gray-700 mb-2">Rating: {hotel.rating}/5</p>}
-      {hotel.description && <p className="text-gray-600 text-sm mb-3">{hotel.description}</p>}
       
       <div className="flex justify-between items-center">
         <p className="text-lg font-bold">₹{hotel.pricePerNight}/night</p>
