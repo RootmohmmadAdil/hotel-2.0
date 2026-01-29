@@ -53,13 +53,13 @@ export default function HotelDetailsPage() {
   };
 
   if (loading) return <main className="p-4"><p>Loading...</p></main>;
-  if (!data) return <main className="p-4"><p>Hotel not found</p><button onClick={() => router.back()} className="mt-3 px-3 py-2 bg-gray-700 text-white rounded">Go Back</button></main>;
+  if (!data) return <main className="p-4"><p>Hotel not found</p><button onClick={() => router.back()} className="mt-3 px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Go Back</button></main>;
 
   const { hotel, rooms } = data;
 
   return (
     <main className="p-4 max-w-4xl mx-auto">
-      <button onClick={() => router.back()} className="mb-4 px-3 py-2 bg-gray-700 text-white rounded">← Back</button>
+      <button onClick={() => router.back()} className="mb-4 px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">← Back</button>
 
       <div className="mb-6">
         <div className="relative h-64 w-full mb-4">
@@ -67,7 +67,7 @@ export default function HotelDetailsPage() {
         </div>
         <h1 className="text-2xl font-bold mb-2">{hotel.name}</h1>
         <p className="text-gray-700 mb-1">City: {hotel.city}</p>
-        {hotel.rating && <p className="text-gray-700 mb-2">Rating: {hotel.rating}/5</p>}
+        {hotel.rating && <p className="text-blue-600 font-semibold mb-2">Rating: {hotel.rating}/5</p>}
       </div>
 
       <div className="border p-4 mb-6 rounded">
@@ -87,11 +87,11 @@ export default function HotelDetailsPage() {
           {rooms?.length ? rooms.map(room => (
             <div key={room._id.toString()} className="border p-3 rounded">
               <p className="font-bold">{room.roomType} (Room #{room.roomNumber})</p>
-              <p className="text-gray-700 mb-2">Capacity: {room.capacity} guests | ₹{room.price}/night</p>
+              <p className="text-gray-700 mb-2">Capacity: {room.capacity} guests | <span className="text-blue-600 font-bold">₹{room.price}/night</span></p>
               <button
                 onClick={() => handleBookRoom(room)}
                 disabled={!room.available || bookingLoading}
-                className={`w-full py-2 rounded font-semibold text-white ${room.available ? 'bg-gray-700' : 'bg-gray-400 cursor-not-allowed'}`}
+                className={`w-full py-2 rounded font-semibold text-white ${room.available ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'}`}
               >
                 {room.available ? (bookingLoading ? 'Booking...' : 'Book Now') : 'Not Available'}
               </button>

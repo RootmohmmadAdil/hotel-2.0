@@ -13,12 +13,12 @@ export default function HotelCard({ hotel }: { hotel: IHotel }) {
       
       <h2 className="text-xl font-bold mb-1">{hotel.name}</h2>
       <p className="text-gray-700 mb-1">City: {hotel.city}</p>
-      {hotel.rating && <p className="text-gray-700 mb-2">Rating: {hotel.rating}/5</p>}
+      {hotel.rating && <p className="text-blue-600 font-semibold mb-2">Rating: {hotel.rating}/5</p>}
       
       <div className="flex justify-between items-center">
-        <p className="text-lg font-bold">₹{hotel.pricePerNight}/night</p>
+        <p className="text-lg font-bold text-blue-600">₹{hotel.pricePerNight}/night</p>
         <Link href={`/hotels/${hotel._id}`}>
-          <button className="bg-gray-700 text-white px-4 py-2 rounded">View Rooms</button>
+          <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View Rooms</button>
         </Link>
       </div>
     </div>

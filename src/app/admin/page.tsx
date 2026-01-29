@@ -23,7 +23,7 @@ export default function AdminPage() {
   return (
     <main className="p-4 max-w-full">
       <h1 className="text-2xl font-bold mb-4">All Bookings</h1>
-      <button onClick={() => router.back()} className="mb-4 px-3 py-2 bg-gray-700 text-white rounded">← Back</button>
+      <button onClick={() => router.back()} className="mb-4 px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">← Back</button>
 
       {loading ? <p>Loading...</p> : bookings.length === 0 ? <p>No bookings.</p> : (
         <>

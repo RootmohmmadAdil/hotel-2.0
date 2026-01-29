@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <main className="p-4 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Book Your Hotel</h1>
-      <a href="/admin" className="inline-block mb-6 px-4 py-2 bg-gray-700 text-white rounded">Admin</a>
+      <a href="/admin" className="inline-block mb-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Admin</a>
       
       {loading ? (
         <p>Loading hotels...</p>
