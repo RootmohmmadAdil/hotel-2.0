@@ -1,122 +1,67 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import HotelCard from '@/components/HotelCard';
-import { IHotel } from '@/models/Hotel';
 
-// Fallback dummy data
-const DUMMY_HOTELS = [
-  {
-    _id: '1',
-    name: 'Grand Hotel',
-    city: 'New York',
-    pricePerNight: 250,
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
-    rating: 4.8,
-    amenities: ['WiFi', 'Pool', 'Gym'],
-  },
-  {
-    _id: '2',
-    name: 'Sunset Resort',
-    city: 'Miami',
-    pricePerNight: 180,
-    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80',
-    rating: 4.6,
-    amenities: ['WiFi', 'Beach', 'Pool'],
-  },
-  {
-    _id: '3',
-    name: 'Mountain Lodge',
-    city: 'Denver',
-    pricePerNight: 150,
-    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=80',
-    rating: 4.7,
-    amenities: ['WiFi', 'Hiking', 'Restaurant'],
-  },
-  {
-    _id: '4',
-    name: 'Urban Boutique',
-    city: 'San Francisco',
-    pricePerNight: 220,
-    image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80',
-    rating: 4.5,
-    amenities: ['WiFi', 'Gym', 'Bar'],
-  },
-  {
-    _id: '5',
-    name: 'Lakeside Inn',
-    city: 'Chicago',
-    pricePerNight: 140,
-    image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80',
-    rating: 4.4,
-    amenities: ['WiFi', 'Lake View', 'Restaurant'],
-  },
-  {
-    _id: '6',
-    name: 'Luxury Suites',
-    city: 'Los Angeles',
-    pricePerNight: 280,
-    image: 'https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&q=80',
-    rating: 4.9,
-    amenities: ['WiFi', 'Pool', 'Spa'],
-  },
+const HOTELS = [
+  { _id: '1', name: 'Taj Palace', city: 'Mumbai', pricePerNight: 250, image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80' },
+  { _id: '2', name: 'Maharaja Resort', city: 'Goa', pricePerNight: 180, image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80' },
+  { _id: '3', name: 'Ashoka Heritage', city: 'Delhi', pricePerNight: 150, image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80' },
 ];
 
 export default function Home() {
-  const [hotels, setHotels] = useState<IHotel[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', hotel: '', checkIn: '', checkOut: '' });
 
-  useEffect(() => {
-    async function fetchHotels() {
-      try {
-        console.log('Fetching hotels...');
-        const response = await fetch('/api/hotels', { cache: 'no-store' });
-        console.log('Response status:', response.status);
-        const data = await response.json();
-        console.log('Response data:', data);
-        
-        if (data.success && data.data) {
-          setHotels(data.data);
-        } else {
-          setError(data.error || 'Failed to fetch hotels');
-          setHotels(DUMMY_HOTELS as any);
-        }
-      } catch (err: any) {
-        console.error('Fetch error:', err);
-        setError(err?.message || 'Connection error');
-        setHotels(DUMMY_HOTELS as any);
-      } finally {
-        setLoading(false);
-      }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.hotel || !form.checkIn || !form.checkOut) {
+      alert('Fill all fields');
+      return;
     }
-
-    fetchHotels();
-  }, []);
+    setBookings([...bookings, { ...form, id: Date.now() }]);
+    setForm({ name: '', email: '', hotel: '', checkIn: '', checkOut: '' });
+    setShowForm(false);
+  };
 
   return (
-    <main style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '15px' }}>Book Your Hotel</h1>
-      <a href="/admin" style={{ display: 'inline-block', marginBottom: '15px', padding: '10px 15px', backgroundColor: '#0066cc', color: 'white', textDecoration: 'none', borderRadius: '4px' }}>Admin Dashboard</a>
-      
-      {error && (
-        <div style={{ padding: '10px', marginBottom: '15px', backgroundColor: '#fff3cd', border: '1px solid #ffc107', borderRadius: '4px', color: '#856404' }}>
-          <strong>Note:</strong> {error} - Showing demo hotels
-        </div>
+    <div style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+      <h1>Hotel Booking</h1>
+      <button onClick={() => setShowForm(!showForm)} style={{ padding: '8px 16px', marginBottom: '20px', cursor: 'pointer' }}>
+        {showForm ? 'Hide' : 'New Booking'}
+      </button>
+
+      {showForm && (
+        <form onSubmit={handleSubmit} style={{ border: '1px solid #ddd', padding: '15px', marginBottom: '20px', borderRadius: '4px' }}>
+          <input placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={{ width: '100%', padding: '8px', marginBottom: '10px' }} />
+          <input placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={{ width: '100%', padding: '8px', marginBottom: '10px' }} />
+          <select value={form.hotel} onChange={(e) => setForm({ ...form, hotel: e.target.value })} style={{ width: '100%', padding: '8px', marginBottom: '10px' }}>
+            <option value="">Select Hotel</option>
+            {HOTELS.map(h => <option key={h._id} value={h.name}>{h.name}</option>)}
+          </select>
+          <input type="date" value={form.checkIn} onChange={(e) => setForm({ ...form, checkIn: e.target.value })} style={{ width: '100%', padding: '8px', marginBottom: '10px' }} />
+          <input type="date" value={form.checkOut} onChange={(e) => setForm({ ...form, checkOut: e.target.value })} style={{ width: '100%', padding: '8px', marginBottom: '10px' }} />
+          <button type="submit" style={{ padding: '8px 16px', backgroundColor: '#0066cc', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Book</button>
+        </form>
       )}
 
-      {loading ? (
-        <p>Loading hotels...</p>
-      ) : (
-        <>
-          <p style={{ color: '#666', marginBottom: '15px' }}>Found {hotels.length} hotels</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-            {hotels.map((hotel: any) => (
-              <HotelCard key={hotel._id?.toString?.() || hotel._id} hotel={hotel} />
-            ))}
-          </div>
-        </>
+      <h2>Hotels</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '30px' }}>
+        {HOTELS.map(hotel => <HotelCard key={hotel._id} hotel={hotel} />)}
+      </div>
+
+      <h2>Bookings ({bookings.length})</h2>
+      {bookings.length === 0 ? <p>No bookings yet</p> : (
+        <div>
+          {bookings.map(b => (
+            <div key={b.id} style={{ border: '1px solid #ddd', padding: '10px', marginBottom: '10px', borderRadius: '4px' }}>
+              <p><strong>{b.name}</strong> - {b.email}</p>
+              <p>{b.hotel} ({b.checkIn} to {b.checkOut})</p>
+            </div>
+          ))}
+        </div>
       )}
-    </main>
+    </div>
   );
 }
