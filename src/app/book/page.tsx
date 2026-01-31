@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { HOTELS } from '../../lib/hotels';
 import { addBooking } from '../../lib/bookingStorage';
 
-export default function BookPage() {
+function BookingForm() {
   const searchParams = useSearchParams();
   const [form, setForm] = useState({
     name: '',
@@ -79,5 +79,13 @@ export default function BookPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function BookPage() {
+  return (
+    <Suspense fallback={<div className="container"><p>Loading...</p></div>}>
+      <BookingForm />
+    </Suspense>
   );
 }
