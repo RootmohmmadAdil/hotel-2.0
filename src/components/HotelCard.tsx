@@ -1,10 +1,25 @@
-export default function HotelCard({ hotel }: { hotel: any }) {
+import Link from 'next/link';
+
+type Hotel = {
+  _id: string;
+  name: string;
+  city: string;
+  pricePerNight: number;
+  image: string;
+};
+
+export default function HotelCard({ hotel }: { hotel: Hotel }) {
   return (
-    <div style={{ border: '1px solid #ddd', borderRadius: '6px', padding: '15px', backgroundColor: '#f9f9f9' }}>
-      <img src={hotel.image} alt={hotel.name} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px' }} />
-      <h3 style={{ margin: '8px 0' }}>{hotel.name}</h3>
-      <p style={{ color: '#555', margin: '4px 0' }}>{hotel.city}</p>
-      <p style={{ fontSize: '18px', fontWeight: 'bold', color: '#0066cc', margin: '8px 0' }}>₹{hotel.pricePerNight}/night</p>
+    <div className="hotel-card">
+      <img className="hotel-card__image" src={hotel.image} alt={hotel.name} />
+      <div className="hotel-card__body">
+        <h3 className="hotel-card__title">{hotel.name}</h3>
+        <p className="hotel-card__city">{hotel.city}</p>
+        <p className="hotel-card__price">₹{hotel.pricePerNight}/night</p>
+        <Link className="button button-small" href={`/book?hotel=${encodeURIComponent(hotel.name)}`}>
+          Book now
+        </Link>
+      </div>
     </div>
   );
 }
